@@ -20,6 +20,13 @@ public class HelloWorldSpark {
                 return "hello world from spark";
             }
         });
+        Spark.get(new Route("/hello") {
+            @Override
+            public Object handle(final Request request, final Response response) {
+                response.type("application/json");
+                return "{ a:1, message: '" + request.queryParams("m") + "'}";
+            }
+        });
     }
 }
 
