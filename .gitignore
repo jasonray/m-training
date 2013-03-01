@@ -1,5 +1,4 @@
 .idea
 target
-.iml
-mvn-sample/m101j/m101j.iml
+*.iml
 
