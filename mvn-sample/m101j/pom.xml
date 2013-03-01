@@ -28,5 +28,11 @@
 		<version>2.10.1</version>
 	</dependency>
 
+	<dependency>
+	      <groupId>spark</groupId>
+	      <artifactId>spark</artifactId>
+	      <version>0.9.9.4-SNAPSHOT</version>
+	</dependency>
+
   </dependencies>
 </project>
