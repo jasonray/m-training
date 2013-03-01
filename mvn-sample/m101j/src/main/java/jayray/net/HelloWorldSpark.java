@@ -24,7 +24,7 @@ public class HelloWorldSpark {
             @Override
             public Object handle(final Request request, final Response response) {
                 response.type("application/json");
-                return "{ a:1, message: '" + request.queryParams("m") + "'}";
+                return "{ message: 'hello " + request.queryParams("m") + "'}";
             }
         });
     }
