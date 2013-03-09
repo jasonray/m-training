@@ -49,7 +49,7 @@ public class GetCounter {
         DBObject update = new BasicDBObject("$inc", new BasicDBObject("counter", range));
 
         DBObject result = counterCollection.findAndModify(query, null, null, false, update, true, true);
-        return (Integer) result.get("counter") - range;
+        return (Integer) result.get("counter") - range + 1;
     }
 
     private static DBCollection initializeCollection() {
