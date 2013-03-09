@@ -25,9 +25,10 @@ public class Week2InsertFetchCursor {
             myCollection.drop();
 
             System.out.println("post-drop count: " + myCollection.count());
+            Random rand = new Random();
 
             for (int i = 0; i < 10; i++) {
-                DBObject doc = new BasicDBObject().append("data", "something").append("num", i).append("x", new Random().nextInt(2)).append("y", new Random().nextInt(100));
+                DBObject doc = new BasicDBObject().append("data", "something").append("num", i).append("x", rand.nextInt(2)).append("y", rand.nextInt(100)).append("z", rand.nextInt(20))  ;
                 System.out.println(doc);
                 myCollection.insert(doc);
             }
@@ -44,9 +45,10 @@ public class Week2InsertFetchCursor {
                 cursor.close();
             }
 
+            QueryBuilder builder = QueryBuilder.start("x").is(0).and("y").greaterThan(10).lessThan(90);
+            DBObject fieldSelection = new BasicDBObject("x", false);
 
-            DBObject prototype = new BasicDBObject("x", 0).append("y", new BasicDBObject("$gt", 10).append("$lt", 90) );
-            cursor = myCollection.find(prototype);
+            cursor = myCollection.find(builder.get() , fieldSelection );
             try {
                 while (cursor.hasNext()) {
                     DBObject record = cursor.next();
