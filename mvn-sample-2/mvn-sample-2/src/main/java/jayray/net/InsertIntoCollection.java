@@ -18,29 +18,33 @@ public class InsertIntoCollection {
         MongoClient client = new MongoClient();
         DB db = client.getDB("test");
         DBCollection fruitCollection = db.getCollection("w2collection");
+
+        initializeFruits(fruitCollection);
+        printFruits(fruitCollection);
+
+        System.out.println("updating fruits");
+        DBObject queryByApple=QueryBuilder.start("_id").is("apple").get();
+        DBObject updateAppleColor = new BasicDBObject("$set", new BasicDBObject("color", "red"));
+        fruitCollection.update(queryByApple, updateAppleColor);
+
+        printFruits(fruitCollection);
+    }
+
+    private static void initializeFruits(DBCollection fruitCollection) {
         fruitCollection.drop();
 
-
-        DBObject notAFruitObject = new BasicDBObject("not-a-fruit", "");
-        fruitCollection.insert(notAFruitObject);
-
         List<String> fruits = Arrays.asList("apple", "banana", "coconut", "date", "entawak", "fig");
-
         for (String fruit : fruits) {
-            DBObject fruitObject = new BasicDBObject("fruit", fruit);
+            DBObject fruitObject = new BasicDBObject("_id", fruit);
             fruitCollection.insert(fruitObject);
         }
+    }
 
-
-        QueryBuilder builder = QueryBuilder.start("fruit").exists(true);
-        DBObject fieldSelection = new BasicDBObject("_id", false);
-
-        System.out.println("filter: " + builder.get());
-
+    private static void printFruits(DBCollection fruitCollection) {
         DBCursor cursor = null;
         try {
-            cursor = fruitCollection.find(builder.get(), fieldSelection);
-            DBObject sort = new BasicDBObject("fruit", 1);
+            cursor = fruitCollection.find();
+            DBObject sort = new BasicDBObject("_id", 1);
             cursor.sort(sort);
 
             while (cursor.hasNext()) {
@@ -50,6 +54,5 @@ public class InsertIntoCollection {
         } finally {
             cursor.close();
         }
-
     }
 }
