@@ -45,7 +45,7 @@ public class Week2InsertFetchCursor {
             }
 
 
-            DBObject prototype = new BasicDBObject("x", 0);
+            DBObject prototype = new BasicDBObject("x", 0).append("y", new BasicDBObject("$gt", 10).append("$lt", 90) );
             cursor = myCollection.find(prototype);
             try {
                 while (cursor.hasNext()) {
