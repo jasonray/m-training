@@ -46,7 +46,7 @@ public class Week2InsertFetchCursor {
             }
 
             QueryBuilder builder = QueryBuilder.start("x").is(0).and("y").greaterThan(10).lessThan(90);
-            DBObject fieldSelection = new BasicDBObject("x", false);
+            DBObject fieldSelection = new BasicDBObject("y", true).append("_id", false);
 
             cursor = myCollection.find(builder.get(), fieldSelection);
             try {
