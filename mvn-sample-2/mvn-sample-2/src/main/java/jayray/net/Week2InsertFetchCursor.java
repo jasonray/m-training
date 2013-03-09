@@ -48,8 +48,11 @@ public class Week2InsertFetchCursor {
             QueryBuilder builder = QueryBuilder.start("x").is(0).and("y").greaterThan(10).lessThan(90);
             DBObject fieldSelection = new BasicDBObject("y", true).append("_id", false);
 
-            cursor = myCollection.find(builder.get(), fieldSelection);
             try {
+                cursor = myCollection.find(builder.get(), fieldSelection);
+                DBObject sort = new BasicDBObject("y", -1);
+                cursor.sort(sort);
+
                 while (cursor.hasNext()) {
                     DBObject record = cursor.next();
                     System.out.println("found this with 0:" + record);
