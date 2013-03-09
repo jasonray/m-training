@@ -28,7 +28,7 @@ public class Week2InsertFetchCursor {
             Random rand = new Random();
 
             for (int i = 0; i < 10; i++) {
-                DBObject doc = new BasicDBObject().append("data", "something").append("num", i).append("x", rand.nextInt(2)).append("y", rand.nextInt(100)).append("z", rand.nextInt(20))  ;
+                DBObject doc = new BasicDBObject().append("data", "something").append("num", i).append("x", rand.nextInt(2)).append("y", rand.nextInt(100)).append("z", rand.nextInt(20));
                 System.out.println(doc);
                 myCollection.insert(doc);
             }
@@ -48,7 +48,7 @@ public class Week2InsertFetchCursor {
             QueryBuilder builder = QueryBuilder.start("x").is(0).and("y").greaterThan(10).lessThan(90);
             DBObject fieldSelection = new BasicDBObject("x", false);
 
-            cursor = myCollection.find(builder.get() , fieldSelection );
+            cursor = myCollection.find(builder.get(), fieldSelection);
             try {
                 while (cursor.hasNext()) {
                     DBObject record = cursor.next();
