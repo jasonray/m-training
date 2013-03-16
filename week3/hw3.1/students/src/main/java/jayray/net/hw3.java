@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
  * Time: 2:24 PM
  * To change this template use File | Settings | File Templates.
  */
-public class hw2 {
+public class hw3 {
     public static void main(String[] args) throws UnknownHostException {
         MongoClient client = new MongoClient();
         DB db = client.getDB("students");
